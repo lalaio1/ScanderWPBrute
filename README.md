@@ -130,9 +130,3 @@ Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](
 Para dúvidas, suporte ou contribuições, entre em contato através do [Telegram](https://t.me/lalaio1).
 
 ---
-
-## 💬 **Imagens da Ferramenta**
-
-![Imagem da Ferramenta](.-images/print1.png)
-
----
