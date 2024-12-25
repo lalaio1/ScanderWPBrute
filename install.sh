@@ -15,6 +15,16 @@ BIN_NAME="ScanderWPBrute"
 PYTHON_SCRIPT="ScanderWPBrute.py"
 BIN_PATH="/usr/local/bin"
 
+anner() {
+  echo ".___                 __         .__  .__   "
+  echo "|   | ____   _______/  |______  |  | |  |  "
+  echo "|   |/    \ /  ___/\   __\__  \ |  | |  |  "
+  echo "|   |   |  \\___ \  |  |  / __ \|  |_|  |__"
+  echo "|___|___|  /____  > |__| (____  /____/____/"
+  echo "         \/     \/            \/           "
+}
+
+anner
 
 echo "[+] Clonando repositório..."
 git clone "$REPO_URL" || { echo "Erro ao clonar o repositório."; exit 1; }
