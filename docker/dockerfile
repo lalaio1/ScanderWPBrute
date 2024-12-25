@@ -1,0 +1,28 @@
+FROM debian:bookworm-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    git \
+    shc \
+    sudo \
+    curl \
+    sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+
+# Copiar o script para o contêiner
+COPY install.sh /root/install.sh
+
+# Tornar o script executável
+RUN chmod +x /root/install.sh
+
+# Executar o script de instalação
+RUN /root/install.sh
+
+# Comando padrão para manter o contêiner ativo
+CMD ["/bin/bash"]
