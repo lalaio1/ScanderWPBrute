@@ -54,10 +54,42 @@ EOF
 
 chmod +x "$SCRIPT_NAME"
 
-# Compilar o script para um binário usando `shc` (certifique-se de ter `shc` instalado)
-echo "[+] Compilando o script em binário..."
-apt-get install -y shc || { echo "Erro ao instalar o shc."; exit 1; }
-shc -f "$SCRIPT_NAME" -o "$BIN_NAME" || { echo "Erro ao compilar o script."; exit 1; }
+install_shc() {
+    echo "[+] Instalando shc..."
+    if ! command -v shc &> /dev/null; then
+        # Baixando o código-fonte
+        apt-get update
+        apt-get install -y build-essential git
+
+        git clone https://github.com/neurobin/shc.git /tmp/shc
+        cd /tmp/shc || exit
+        make
+        make install
+        cd - || exit
+        rm -rf /tmp/shc
+    fi
+}
+
+# Função para compilar o script em binário
+compile_script() {
+    local script_name="$1"
+    local bin_name="$2"
+
+    echo "[+] Compilando o script '$script_name' em binário..."
+
+    if [ -f "$script_name" ]; then
+        # Compilando com shc
+        shc -f "$script_name" -o "$bin_name" && echo "[+] Binário '$bin_name' criado com sucesso!" || { echo "Erro ao compilar o script."; exit 1; }
+    else
+        echo "Script '$script_name' não encontrado!"
+        exit 1
+    fi
+}
+
+# Chamando as funções
+install_shc
+compile_script "$1" "$2"
+
 
 # Mover o binário para o PATH
 echo "[+] Movendo binário para $BIN_PATH..."
